@@ -17,6 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+```
+git clone -b rel/2.4.17 git@github.com:apache/hbase.git
+
+mvn versions:set -DnewVersion=2.4.17-hadoop3
+mvn versions:commit
+
+find **/pom.xml -type f -exec sed -i '' -e 's/org.apache.hbase</io.github.melin.hbase</g' {} \;
+mvn clean deploy -Denforcer.skip -DskipTests -Dhadoop.profile=3.0 -Psite-install-step
+```
+
 ![hbase-logo](https://raw.githubusercontent.com/apache/hbase/master/src/site/resources/images/hbase_logo_with_orca_large.png)
 
 [Apache HBase](https://hbase.apache.org) is an open-source, distributed, versioned, column-oriented store modeled after Google' [Bigtable](https://research.google.com/archive/bigtable.html): A Distributed Storage System for Structured Data by Chang et al. Just as Bigtable leverages the distributed data storage provided by the Google File System, HBase provides Bigtable-like capabilities on top of [Apache Hadoop](https://hadoop.apache.org/).
